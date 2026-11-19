@@ -1,0 +1,63 @@
+# Datos de demostración, no inventario confirmado. Rutas relativas al repo.
+- nombre: argollas-oro
+  plantilla: producto
+  lugar: fuentes/lugares/calle.jpg
+  pieza: fuentes/piezas/argollas.png
+  tipo: Argollas
+  frase: para vos
+  material: oro laminado
+  precio: L350
+  estado: disponible
+
+- nombre: collar-encargo
+  plantilla: encargo
+  lugar: fuentes/lugares/picacho.jpg
+  pieza: fuentes/piezas/collar.png
+  tipo: Collar
+  frase: la que te faltaba
+  material: plata 925
+  precio: L650
+  estado: por encargo · 7 días
+
+- nombre: guia-500
+  plantilla: guia
+  titulo: Regalos
+  rango: hasta L500
+  lugar: fuentes/lugares/calle.jpg
+  piezas:
+    - fuentes/piezas/argollas.png
+    - fuentes/piezas/anillo.png
+
+- nombre: por-que-opalaca
+  plantilla: historia
+  # TODO: pedir a Carlos una foto propia del occidente (Intibucá o Lempira),
+  # con lugar confirmado y permiso registrado en fuentes/CREDITOS.md.
+  # Reemplazar El Picacho: es solo un sustituto para esta muestra, no la sierra.
+  lugar: fuentes/lugares/picacho.jpg
+  titulo: ¿Por qué Opalaca?
+  texto: >-
+    Nuestro nombre nace de la Sierra de Opalaca, en el occidente de Honduras.
+    Cerca, en Erandique, el ópalo inspira nuestra paleta.
+    Esa es nuestra raíz visual: una historia para llevar cerca.
+
+- nombre: favoritos
+  plantilla: carrusel
+  titulo: Regalos
+  rango: hasta L800
+  lugar: fuentes/lugares/calle.jpg
+  piezas:
+    - nombre: argollas-plata
+      lugar: fuentes/lugares/picacho.jpg
+      tipo: Argollas
+      pieza: fuentes/piezas/argollas-plata.png
+      frase: eso sos vos
+      material: plata 925
+      precio: L450
+      estado: disponible
+    - nombre: pulsera-acero
+      tipo: Pulsera
+      pieza: fuentes/piezas/pulsera.png
+      frase: para regalar
+      material: acero
+      precio: L300
+      estado: disponible
