@@ -30,7 +30,10 @@ python opalaca.py posts/ejemplos.yaml --salida salida/mi-campana
 ```
 
 El primer comando escribe **7 PNG de 1080 × 1350** y sus pies `.txt` en
-`salida/muestras/`. `--historia` recompone a 1080 × 1920, en
+`salida/muestras/`, más **hoja.png** con todas las láminas en una cuadrícula
+3 × N de celdas 360 × 450, en orden YAML. La hoja se rehace con la selección
+de cada ejecución (con `--solo`, solo esa selección), sin imágenes antiguas.
+`--historia` recompone a 1080 × 1920, en
 `salida/historias/`; navidad usa carpetas separadas. `--salida` cambia el destino.
 Los PNG del mismo nombre se reemplazan al regenerar. El grano es aleatorio.
 
@@ -43,6 +46,7 @@ relativas al repo (también se admiten absolutas). Desde otra carpeta:
 ```yaml
 - nombre: argollas-oro
   plantilla: producto
+  # layout: B  # opcional; por defecto rota A → B → C
   lugar: fuentes/lugares/picacho.jpg
   pieza: fuentes/piezas/argollas.png
   tipo: Argollas
@@ -63,6 +67,21 @@ se muestra `nombre` sin guiones. Las cinco plantillas están documentadas en
 y numera desde `-01` (portada). `--solo favoritos` genera el carrusel entero.
 `--historia` es un formato disponible para todas las plantillas, distinto de
 la plantilla narrativa `historia`.
+
+Producto y encargo rotan entre tres composiciones: A (foto arriba), B (en
+espejo) y C (foto lateral). `layout: A`, B o C fuerza una. La rotación cuenta
+los productos del YAML y del carrusel, se calcula antes de `--solo` y evita
+repeticiones. Dos layouts forzados iguales consecutivos son un error.
+
+Dos láminas consecutivas tampoco pueden repetir la misma foto de lugar:
+la CLI avisa y detiene el lote antes de guardar. Alterná `lugar`, también en
+los interiores del carrusel. Se comprueba el YAML completo con `--solo`.
+
+La joya visible ocupa ≥45 % del ancho y está centrada. Si una toma muy estrecha
+no cabe a esa escala, la CLI pide una composición más ancha, sin deformarla.
+Precio/estado nunca bajan de 46 px, material de 36 px y relato de historia de
+40 px. Un texto demasiado largo se rechaza. `lugar` sigue siendo obligatorio;
+el TODO de la historia pide una foto propia de Intibucá o Lempira.
 
 La CLI valida campos, nombres duplicados, precios y estados antes de guardar.
 Un lugar inexistente es un error. Si falta la foto de una joya, dibuja unas

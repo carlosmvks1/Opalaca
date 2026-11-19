@@ -1,49 +1,65 @@
 # Muestras · Ópalo de Erandique
 
-Generadas con `python opalaca.py posts/ejemplos.yaml`. Siete PNG RGB de
-1080 × 1350; cada uno tiene un pie `.txt` con atribución y llamada a WhatsApp.
+Generadas con `python opalaca.py posts/ejemplos.yaml`. Siete posts PNG RGB de
+1080 × 1350 y sus pies `.txt`, más `hoja.png`: cuadrícula 3 × 3 de miniaturas
+360 × 450, en orden YAML, incluyendo las tres láminas del carrusel. Las dos
+celdas finales quedan vacías; la hoja no es un post de Instagram.
+
+![Perfil: siete láminas, alternando lugares, con layouts de producto A, B, C y A](hoja.png)
 
 **Solo demostración:** las argollas son marcadores, incluso en las composiciones
 que dicen collar o pulsera. No hay fotos de productos ni stock/precios
-confirmados. Las fotos de lugares son Wikimedia con créditos en
+confirmados. Los créditos de las fotos y de la hoja están en
 [fuentes/CREDITOS.md](../../fuentes/CREDITOS.md). El Picacho no representa
-la Sierra de Opalaca. Las composiciones derivadas de `calle.jpg` se comparten
-bajo [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+la Sierra de Opalaca. El TODO del YAML pide una foto propia del occidente,
+Intibucá o Lempira, que lo sustituya en la historia.
 
-| Producto | Encargo |
+Las composiciones derivadas de `calle.jpg` y la hoja se comparten bajo
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+
+| Producto · A | Encargo · B |
 |---|---|
-| ![Argollas, oro laminado, L350 disponible; marcador sobre El Picacho en duotono](argollas-oro.png) | ![Collar, plata 925, L650 por encargo 7 días y anticipo 50%; marcador](collar-encargo.png) |
+| ![Argollas, oro laminado, L350 disponible; marcador centrado sobre una calle de Tegucigalpa](argollas-oro.png) | ![Collar, plata 925, L650 por encargo 7 días y anticipo 50%; marcador sobre El Picacho](collar-encargo.png) |
 
 | Guía | Historia de marca |
 |---|---|
-| ![Regalos hasta L500 con dos marcadores sobre una calle de Tegucigalpa](guia-500.png) | ![Por qué Opalaca: historia de la sierra y la inspiración del ópalo; foto de muestra de El Picacho](por-que-opalaca.png) |
+| ![Regalos hasta L500 con dos marcadores sobre una calle de Tegucigalpa](guia-500.png) | ![Por qué Opalaca: relato a 42 px, foto temporal de El Picacho](por-que-opalaca.png) |
 
-| Carrusel · portada | Carrusel · pieza 1 | Carrusel · pieza 2 |
+| Carrusel · portada | Carrusel · C | Carrusel · A |
 |---|---|---|
-| ![Regalos hasta L800](favoritos-01.png) | ![Argollas de plata 925, L450 disponible; marcador](favoritos-02.png) | ![Pulsera de acero, L300 disponible; marcador](favoritos-03.png) |
+| ![Regalos hasta L800](favoritos-01.png) | ![Argollas de plata 925, L450 disponible; foto lateral](favoritos-02.png) | ![Pulsera de acero, L300 disponible; foto arriba](favoritos-03.png) |
 
-## Revisión del 18 de noviembre de 2026
+## Revisión visual y técnica
 
-Se abrieron individualmente los siete PNG y se revisaron tamaño, aire,
-legibilidad, composición, duotono y un solo motivo de ópalo por lámina.
+Se abrieron individualmente los siete posts y la hoja. Dimensiones correctas,
+márgenes ≥80 px, un motivo de ópalo por lámina y no más de dos acentos.
+Los paisajes siguen en duotono y la joya conserva su color. En producto y
+encargo los marcadores miden 720 px de ancho visible (66.7 %), centrados.
 
-| Archivo | Tamaño | Márgenes ≥80 px | Ópalos | Acentos fuera del ópalo |
-|---|---|---|---|---|
-| argollas-oro | 1080 × 1350 | Sí | 1 | oro |
-| collar-encargo | 1080 × 1350 | Sí | 1 | oro, menta |
-| guia-500 | 1080 × 1350 | Sí | 1 | lavanda, menta |
-| por-que-opalaca | 1080 × 1350 | Sí | 1 | ninguno |
-| favoritos-01 | 1080 × 1350 | Sí | 1 | lavanda, menta |
-| favoritos-02 | 1080 × 1350 | Sí | 1 | oro |
-| favoritos-03 | 1080 × 1350 | Sí | 1 | oro |
+| Lámina | Layout | Lugar |
+|---|---|---|
+| argollas-oro | A | calle |
+| collar-encargo | B | picacho |
+| guia-500 | guía | calle |
+| por-que-opalaca | historia | picacho (temporal; TODO) |
+| favoritos-01 | guía | calle |
+| favoritos-02 | C | picacho |
+| favoritos-03 | A | calle |
 
-El conteo de acentos excluye neutros, marca y producto/marcador. El motivo
-único de ópalo tiene sus tres discos de papel. Todos los paisajes están en
-duotono tinta → crema; los marcadores conservan su color dorado.
+No se repiten lugares consecutivos. La rotación de productos continúa dentro
+del carrusel; `--solo` conserva la variante. Precio a 60 px, estado a 46 px,
+material a 40 px y relato a 42 px. La CLI rechaza desbordamientos sin bajar
+de los mínimos 46/46/36/40 px respectivamente.
 
-Validación técnica: 14 pruebas automatizadas pasan. Se generaron también
-las siete láminas en historia, Navidad feed y Navidad historia: 28 PNG en
-total, tamaños comprobados y sin EXIF, XMP ni ICC. Se revisaron visualmente
-composiciones representativas de esas variantes; quedan fuera de Git.
-La conservación del color/alfa de una joya se probó con imágenes sintéticas
-PNG RGB/RGBA e indexadas. Falta validar recortes sobre fotos reales de stock.
+**23 pruebas automatizadas pasan**, incluyendo las 24 combinaciones de
+layout × producto/encargo × formato × tema. Comprueban ancho visible y centro
+con PNG sintético con relleno transparente, tamaños tipográficos reales,
+rotación y layouts forzados, rechazo de lugares repetidos, obligatoriedad del
+lugar en historia, errores sin escritura parcial, y orden/dimensiones de la
+hoja. Las fotos demasiado estrechas o vacías generan un error, no una joya
+silenciosamente más pequeña.
+
+También se generaron las siete láminas y su hoja en historia, Navidad feed y
+Navidad historia: 28 posts + 4 hojas, sin EXIF/XMP/ICC. Las variantes quedan
+fuera de Git. Las muestras siguen requiriendo fotos reales autorizadas para
+validar la separación de fondos sobre el stock.

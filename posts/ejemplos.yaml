@@ -1,7 +1,7 @@
 # Datos de demostración, no inventario confirmado. Rutas relativas al repo.
 - nombre: argollas-oro
   plantilla: producto
-  lugar: fuentes/lugares/picacho.jpg
+  lugar: fuentes/lugares/calle.jpg
   pieza: fuentes/piezas/argollas.png
   tipo: Argollas
   frase: para vos
@@ -11,7 +11,7 @@
 
 - nombre: collar-encargo
   plantilla: encargo
-  lugar: fuentes/lugares/calle.jpg
+  lugar: fuentes/lugares/picacho.jpg
   pieza: fuentes/piezas/collar.png
   tipo: Collar
   frase: la que te faltaba
@@ -30,6 +30,9 @@
 
 - nombre: por-que-opalaca
   plantilla: historia
+  # TODO: pedir a Carlos una foto propia del occidente (Intibucá o Lempira),
+  # con lugar confirmado y permiso registrado en fuentes/CREDITOS.md.
+  # Reemplazar El Picacho: es solo un sustituto para esta muestra, no la sierra.
   lugar: fuentes/lugares/picacho.jpg
   titulo: ¿Por qué Opalaca?
   texto: >-
@@ -41,9 +44,10 @@
   plantilla: carrusel
   titulo: Regalos
   rango: hasta L800
-  lugar: fuentes/lugares/picacho.jpg
+  lugar: fuentes/lugares/calle.jpg
   piezas:
     - nombre: argollas-plata
+      lugar: fuentes/lugares/picacho.jpg
       tipo: Argollas
       pieza: fuentes/piezas/argollas-plata.png
       frase: eso sos vos

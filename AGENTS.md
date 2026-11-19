@@ -15,6 +15,15 @@ Motor único en `motor/collage.py`, datos en YAML. No dupliqués sus funciones.
 10. Producto: tipo o nombre, material exacto, precio y estado siempre visibles.
 11. Fondo crema con grano 10; grano final 6. Feed 1080 × 1350; historia 1080 × 1920.
 12. Navidad es una variante explícita, nunca reemplaza la identidad principal.
+13. Producto/encargo: joya visible centrada y ≥45 % del ancho (486 px), sin
+    deformar; lugar pequeño como fondo parcial. Layouts A/B/C rotan por YAML;
+    `layout` puede forzar uno. Nunca repetir layouts consecutivos de producto.
+14. Precio y estado ≥46 px; material ≥36 px. Historia: relato y título ≥40 px,
+    `lugar` obligatorio. No reducir estos mínimos para acomodar textos largos.
+15. Lugares consecutivos repetidos: avisar con nombres y detener el lote hasta
+    corregir el YAML. No sustituir fotos silenciosamente. `--solo` conserva layout.
+16. Regenerar `salida/muestras/hoja.png` en 3 columnas desde los PNG finales,
+    en orden YAML e incluyendo el carrusel, sin incluir hojas previas.
 
 No afirmar origen hondureño de las piezas ni presencia de ópalo sin evidencia.
 No abreviar oro laminado a oro. No publicar personas reconocibles sin permiso.

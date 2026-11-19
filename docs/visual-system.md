@@ -94,8 +94,21 @@ la composición, sin convertir la foto de producto a otra paleta.
    La composición rechaza elementos fuera del área segura.
 9. Siempre cuatro datos en producto: tipo/nombre, material exacto, precio
    y estado. `tipo` es opcional; sin él se muestra `nombre` sin guiones.
-10. No recortar textos para hacerlos caber. Se ajusta el tamaño hasta un mínimo
-    legible (24 px en datos); si no alcanza, la CLI falla y pide un texto menor.
+   El bloque inferior ocupa hasta 1214 px en feed: precio a 60 px (mínimo 46)
+   y estado a 46 px en dos líneas sobre un panel oro; material a 40 px
+   (mínimo 36). Encargo sube ese bloque 50 px y reserva el anticipo debajo.
+10. No recortar textos ni reducirlos bajo los mínimos para hacerlos caber.
+    Si no alcanzan, la CLI falla y pide un texto menor. Historia usa 42 px
+    para el relato (mínimo 40), con hasta 40 palabras; el título también tiene
+    mínimo 40 px. La marca y las notas de muestra conservan su escala propia.
+11. En producto y encargo la figura visible de la joya, sin el relleno
+    transparente, ocupa al menos 486 px (45 % de 1080) y se centra en x=540.
+    Se ajusta proporcionalmente dentro de un área de 720 × 550 px en feed,
+    más altura en historia. Una toma demasiado estrecha genera un error:
+    hay que aportar una composición más ancha, sin deformar ni cortar la joya.
+12. El lugar es un fondo parcial detrás de la joya: 560 × 300 px en A/B,
+    300 × 490 px en C, antes de rotación, para feed. El ópalo baja a 270 px.
+    En historia aumenta la altura disponible sin estirar los recursos.
 
 ### 4.3 Recursos opcionales
 
@@ -115,7 +128,13 @@ habilita añadir más ópalos, colores o rótulos a las plantillas vigentes.
 
 Siempre PNG RGB. Historia recompone alturas y posiciones, sin estirar ni
 recortar el feed. `--salida` permite elegir otra carpeta. Cada PNG tiene un
-pie `.txt`. Solo `salida/muestras/` se versiona. El grano cambia al regenerar,
+pie `.txt`. Además, cada ejecución escribe `hoja.png`: cuadrícula 3 × N
+con todas las láminas generadas en esa ejecución, incluidos los interiores del
+carrusel, en orden YAML. Celdas de 360 × 450 px para feed, 360 × 640 para
+historia; sin recorte ni rótulos, con celdas finales vacías en crema. No es un
+post para publicar. Se arma desde los PNG finales, sin incorporar archivos
+antiguos ni una hoja previa. Con `--solo` muestra solo la selección.
+Solo `salida/muestras/` se versiona. El grano cambia al regenerar,
 aunque los bordes usan semillas fijas. No regenerar muestras sin necesidad.
 
 ---
@@ -129,10 +148,10 @@ Las rutas de imágenes son relativas a la raíz del repo o absolutas.
 
 | Plantilla | Composición | Campos adicionales |
 |---|---|---|
-| `producto` | Lugar arriba con borde inferior rasgado; joya a la izquierda sobre foto; ópalo abajo a la derecha; frase, tipo, material, precio y estado debajo | `pieza` (puede faltar), `frase`, `material`, `precio`, `estado`; opcional `tipo` |
+| `producto` | Joya centrada y dominante; lugar pequeño detrás, layout A/B/C; ópalo y jerarquía comercial inferior | `pieza` (puede faltar), `frase`, `material`, `precio`, `estado`; opcionales `tipo`, `layout` |
 | `encargo` | Producto más etiqueta menta «50 % de anticipo» | Igual a producto; `estado: por encargo · N días`, N entero positivo |
 | `guia` | Título grande arriba; ópalo arriba a la derecha; foto al centro; presupuesto en lavanda y etiqueta menta | `titulo`, `rango`; opcional `piezas` (2–3 rutas o null) |
-| `historia` | Pregunta, montaña en duotono, ópalo grande y relato | `titulo`, `texto` de hasta 40 palabras |
+| `historia` | Pregunta, montaña en duotono, ópalo y relato a ≥40 px | `lugar` obligatorio y existente, `titulo`, `texto` de hasta 40 palabras |
 | `carrusel` | Portada guía y una lámina producto por pieza | `titulo`, `rango`, `piezas` (lista de mapas de producto) |
 
 Estado admite `disponible` o `por encargo · N días`. Precios como `L350` o
@@ -140,6 +159,30 @@ Estado admite `disponible` o `por encargo · N días`. Precios como `L350` o
 En carrusel, cada pieza hereda `lugar` de la portada si no define uno propio;
 los archivos se numeran `nombre-01.png` (portada), `nombre-02.png`, etc.
 `--solo` selecciona el nombre del post o el carrusel completo.
+
+### 5.1 Variantes A, B y C
+
+| Layout | Foto de fondo | Joya | Ópalo |
+|---|---|---|---|
+| A | Arriba, desplazada a la izquierda | Centrada, se superpone por debajo de la foto | Abajo a la derecha |
+| B | A la derecha, algo más baja; composición en espejo sin reflejar la fotografía | Centrada | Abajo a la izquierda |
+| C | Recorte vertical a la izquierda | Centrada sobre el fragmento lateral | Arriba a la derecha |
+
+Los productos y encargos rotan A → B → C según su orden en el YAML, incluyendo
+las piezas del carrusel. Guías e historias no consumen un turno de esa rotación.
+`layout: A` (o B/C) fuerza una variante. La elección automática evita la
+variante anterior y una variante forzada inmediatamente después. Dos productos
+consecutivos que fuercen el mismo layout son un error que hay que corregir.
+La asignación se hace antes de `--solo`: regenerar una pieza aislada conserva
+su layout. No se modifica ni reordena el YAML.
+
+También se revisan los lugares en todas las láminas consecutivas, incluida la
+portada del carrusel. Repetir la misma ruta de foto, normalizada, imprime una
+**ADVERTENCIA** con ambos nombres y detiene el lote antes de escribir. Cambiá
+el lugar en los datos; el motor no elige otra foto por su cuenta. En carruseles
+con varias piezas hay que alternar `lugar` explícitamente cuando la herencia
+repetiría la foto anterior. La validación incluye el YAML completo con `--solo`.
+`hoja` se reserva como nombre de archivo.
 
 ## 6. Tono de voz
 
@@ -167,7 +210,9 @@ reconocibles sin permiso, aunque la foto tenga una licencia libre.
 Las muestras usan únicamente las dos fotografías de Wikimedia copiadas del
 blog. Se conserva su atribución y licencia. El Picacho está en Tegucigalpa:
 la muestra de historia **no documenta la Sierra de Opalaca ni Erandique**.
-Sustituirla por una fotografía propia verificada para una historia localizada.
+El TODO en `posts/ejemplos.yaml` pide a Carlos una foto propia del occidente
+(Intibucá o Lempira), con ubicación y permiso registrados, para sustituir
+El Picacho. Mientras no esté disponible, se conserva como muestra temporal.
 Las composiciones con `calle.jpg` son adaptaciones bajo CC BY-SA 4.0;
 acompañarlas siempre con sus créditos y declaración de modificaciones.
 
